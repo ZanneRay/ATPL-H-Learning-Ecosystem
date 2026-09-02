@@ -32,6 +32,12 @@ markdown_extensions:
   - pymdownx.tasklist:
       custom_checkbox: true
 
+extra_css:
+  - assets/stylesheets/diagram-zoom.css
+
+extra_javascript:
+  - assets/javascripts/diagram-zoom.js
+
 nav:
   - Home: index.md
   - Start Here:
