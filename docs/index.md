@@ -2,7 +2,44 @@
 
 ## A visual-first learning system for helicopter ground school
 
-This site is the live design handbook for a modern ATPL(H) learning ecosystem. **082 Principles of Flight — Helicopters** is the first complete implementation and will be used as the blueprint before the architecture is extended to other subjects.
+**A visual, evidence-led ATPL(H) ground-school architecture that helps students predict, model, test and explain helicopter flight theory.**
+
+This live design handbook is for **ground-school instructors, curriculum developers, ATO training/quality teams and reviewers**. **082 Principles of Flight — Helicopters** is the first implementation and is being used as the worked blueprint before the architecture is extended to other subjects.
+
+> **The problem:** regulatory coverage can tell us *what* must be taught, but it does not by itself create a coherent mental model or show whether a student can reason with the theory when conditions change.
+
+<div class="grid cards" markdown>
+
+-   :material-map-outline:{ .lg .middle } **Explore the 32-hour Subject 082 map**
+
+    ---
+
+    See how the regulatory knowledge spine is reorganised into seven connected reasoning modules.
+
+    [:octicons-arrow-right-24: Open curriculum map](curriculum/32-HOUR-CURRICULUM-MAP.md)
+
+-   :material-helicopter:{ .lg .middle } **See a worked module**
+
+    ---
+
+    Follow Module 1 from prediction through theory, HeliLab exploration, explanation and evidence.
+
+    [:octicons-arrow-right-24: Open Module 1](curriculum/MODULE-1-BLUEPRINT.md)
+
+-   :material-flask-outline:{ .lg .middle } **Try HeliLab**
+
+    ---
+
+    Explore the interactive helicopter-aerodynamics concept laboratory used by the curriculum.
+
+    [:octicons-arrow-right-24: Launch HeliLab](https://zanneray.github.io/helilab/HeliLab.html)
+
+</div>
+
+!!! info "Current project status"
+    **Live now:** learning architecture, 32-hour curriculum map, first EASA LO mapping, student journey and Module 1 worked prototype.  
+    **In development:** Modules 2–3, HeliLab learning modes and missions, enriched traceability/evidence view and assessment architecture.  
+    **Planned:** Modules 4–7, validation layer, complete visual handbook and controlled PDF release.
 
 > **Design rule:** diagram first, explanation second.
 
@@ -57,15 +94,15 @@ The redesign does **not** replace rigorous theory with scenarios. It changes wha
 | **2. Curriculum architecture** | What must be learned, in what sequence, and how is mastery evidenced? | 32-hour map, LO traceability, module designs |
 | **3. Delivery ecosystem** | Which tool is best for each learning function? | HeliLab, Link & Learn, LPlus, PowerPoint, handbook, GitHub |
 
-## Current build priorities
+## Build focus now
 
-1. Build the visual ecosystem poster.
-2. Freeze the 32-hour Principles of Flight architecture.
-3. Map every EASA Subject 082 Learning Objective.
-4. Prototype Modules 1–3 in full detail.
-5. Define the HeliLab learning modes and mission standard.
-6. Define formative assessment, LPlus boundaries and Link & Learn student journey.
-7. Publish the complete visual handbook and printable PDF.
+The architecture is mature enough to test through real learning design. The immediate focus is therefore **proof rather than more framework**:
+
+1. Make Module 1 the reference worked example.
+2. Build Modules 2–3 to the same standard.
+3. Establish HeliLab **Model → Explore → Mission → Challenge** modes.
+4. Turn LO mapping into visible evidence/traceability.
+5. Only then scale the pattern across Modules 4–7 and the wider handbook.
 
 ## Output model
 
