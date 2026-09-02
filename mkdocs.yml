@@ -57,6 +57,7 @@ nav:
       - Module 1 — Visual System: curriculum/MODULE-1-VISUAL-SYSTEM.md
   - Standards:
       - Documentation Standard: standards/DOCUMENTATION-STANDARD.md
+      - BET Visual & Physics Contract: standards/BET-VISUAL-PHYSICS-CONTRACT.md
 
 extra:
   generator: false
