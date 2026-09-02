@@ -6,7 +6,10 @@
 The purpose of this page is to stop Module 1 becoming a conventional slide deck. The lesson uses a **small family of persistent visual models**. New information is added to an existing mental picture wherever possible.
 
 !!! info "Source boundary"
-    The aerodynamic relationships below follow the current project textbook. The visual grammar, reveal sequence and screen composition are curriculum-design choices.
+    The aerodynamic relationships below follow the current project textbook and the shared BET visual/physics contract. The visual grammar, reveal sequence and screen composition are curriculum-design choices.
+
+!!! note "BET convention authority"
+    Detailed BET arrow direction, topology, nomenclature and semantic colours are controlled by **Standards → BET Visual & Physics Contract**. HeliLab's verified physics and `PHYSICS_VISUAL_CONTRACT.md` are the implementation authority where earlier artwork differs.
 
 ## The visual promise
 
@@ -16,11 +19,11 @@ By the end of Module 1, a student should recognise this structure instantly:
 flowchart LR
     V["VELOCITIES<br/>What airflow does this element see?"] --> A["ANGLES<br/>φ and α"]
     A --> F["FORCES<br/>FL · FD · TAF"]
-    F --> C["COMPONENTS<br/>FV · FH"]
+    F --> C["COMPONENTS<br/>dT (FV) · FH"]
     C --> R["ROTOR<br/>Σ → T · Mbrake"]
 ```
 
-The textbook defines BET in essentially this order: local velocity inputs produce **vrel**, flow geometry gives **φ and α**, section aerodynamics give **FL/FD/TAF/FV/FH**, and summation gives rotor thrust and braking torque.
+The textbook defines BET in essentially this order: local velocity inputs produce **vrel**, flow geometry gives **φ and α**, section aerodynamics give **FL/FD/TAF**, the resultant resolves into **dT (FV)/FH**, and summation gives rotor thrust and braking torque.
 
 ---
 
@@ -33,16 +36,33 @@ For blade-element diagrams:
 - local TPP/reference line stays horizontal where practical;
 - blade motion/rotational velocity uses one consistent horizontal direction;
 - induced/axial velocity is drawn vertically;
-- **vrel** is always the vector resultant of the active velocity components;
+- **vrel** uses the HeliLab aerodynamic convention: **tail upstream → arrowhead at the blade element**;
+- the velocity triangle uses the established HeliLab topology and is not mirrored for layout convenience;
 - chord line is visually distinct from the TPP;
-- **θ** is measured between chord/reference plane;
+- **θ** is blade pitch angle measured between chord and reference plane;
 - **φ** is the inflow angle of local relative airflow;
 - **α** is the angle between chord and local relative airflow;
 - **FL** is normal to vrel;
-- **FD** is parallel/opposite to vrel;
-- TAF is resolved into **FV** normal to the local TPP and **FH** in-plane.
+- **FD** is parallel/opposite to the adopted local relative-flow direction;
+- TAF resolves into **dT (FV)** normal to the local TPP and **FH** in-plane;
+- in normal powered flight, **FH points aft/opposite blade travel** and is the local braking/torque contribution.
 
 Do not flip the airflow convention between figures simply to make a drawing fit.
+
+## Semantic colour convention
+
+Colour encodes physical meaning, not whether a quantity is an input or a derived result:
+
+- airflow / velocities / φ → blue;
+- chord / blade pitch θ → orange;
+- lift / local thrust component → green;
+- drag → red;
+- TAF → purple;
+- normal-flight FH / braking contribution → amber;
+- structural/reference geometry → neutral gray;
+- α → context colour from green toward amber/red near stall.
+
+Input-versus-derived status is shown with line style, opacity and reveal state rather than conflicting hues.
 
 ## Progressive reveal convention
 
@@ -59,8 +79,8 @@ Every core figure can exist in four states:
 
 1. **Physical object / context** — helicopter, rotor, blade element
 2. **Inputs** — ρ, Ω, r, vi, θ
-3. **Constructed quantities** — vrel, φ, α
-4. **Local outputs** — FL, FD, TAF, FV, FH
+3. **Flow geometry** — vrel, φ, α
+4. **Local outputs** — FL, FD, TAF, dT (FV), FH
 5. **Whole-rotor outputs** — T, Mbrake
 
 This hierarchy should also become the HeliLab information architecture.
@@ -149,7 +169,7 @@ This is the first deliberately comparative visual.
 
 Bottom statement appears only after prediction:
 
-**AOA can change without AOI changing.**
+**AOA can change without blade pitch changing.**
 
 This visual should later morph directly into V10/V11 rather than being discarded.
 
@@ -208,11 +228,11 @@ Overlay V08 with local tangential vectors of visibly increasing length.
 
 Reveal:
 
-**vr = Ωr**
+**vrot = Ωr**
 
 Then add a small qualitative strip below:
 
-`r ↑ → vr ↑ → qlocal tends to ↑`
+`r ↑ → vrot ↑ → qlocal tends to ↑`
 
 **Caution:** do not conclude “therefore maximum lift is at the tip”. The textbook explicitly notes tip-vortex effects reduce effective AOA near the tip, so useful loading does not simply peak at the tip.
 
@@ -224,16 +244,16 @@ This becomes the **master Module 1 technical figure**.
 
 Start with local TPP and blade element. Build in this exact order:
 
-1. **vr = Ωr**;
+1. **vrot = Ωr**;
 2. **vi** (or applicable axial component);
-3. vector resultant **vrel**;
+3. vector resultant **vrel**, drawn upstream → blade;
 4. angle **φ** between the local TPP/rotational direction and vrel.
 
 Do not add forces yet.
 
 ### Prediction state
 
-Hold vr and θ fixed. Increase vi.
+Hold vrot and θ fixed. Increase vi.
 
 Student must predict:
 
@@ -249,13 +269,12 @@ Reuse V10 without changing its geometry. Add the blade chord at **θ**.
 
 Highlight three angle arcs separately:
 
-- θ — AOI/pitch;
-- φ — INFLOW;
+- θ — blade pitch angle;
+- φ — inflow angle;
 - α — effective AOA.
 
 Then reveal:
 
-**AOA = AOI − INFLOW**  
 **α = θ − φ**
 
 ### Two-state comparison
@@ -279,13 +298,15 @@ Reuse V11. Add:
 2. FD parallel/opposite vrel;
 3. TAF;
 4. resolve TAF into:
-   - **FV** normal to local TPP;
+   - **dT (FV)** normal to local TPP;
    - **FH** in the TPP plane.
+
+For the normal powered-flight reference state, FH points **aft/opposite blade travel**.
 
 Side labels:
 
-`FV → thrust-producing contribution`  
-`FH → torque/power-related contribution`
+`dT (FV) → local thrust-producing contribution`  
+`FH → local braking / torque contribution`
 
 **Prompt:** *Which of these is whole-rotor thrust?*
 
@@ -303,7 +324,7 @@ Animation/storyboard:
 
 Then:
 
-**Σ FV → T**  
+**Σ dT → T**  
 **Σ(FH · r) → Mbrake**
 
 This visual is crucial because the textbook explicitly warns against confusing a high local force with whole-rotor thrust.
@@ -316,10 +337,10 @@ Full chain, but still no detailed flight-regime answer:
 
 ```mermaid
 flowchart LR
-    I["INPUTS<br/>Ω · r · vi · θ · ρ"] --> V["VELOCITIES<br/>vr · vrel"]
+    I["INPUTS<br/>Ω · r · vi · θ · ρ"] --> V["VELOCITIES<br/>vrot · vrel"]
     V --> A["ANGLES<br/>φ · α"]
     A --> F["SECTION FORCES<br/>FL · FD · TAF"]
-    F --> C["RESOLVE<br/>FV · FH"]
+    F --> C["RESOLVE<br/>dT (FV) · FH"]
     C --> S["SUM<br/>T · Mbrake"]
 ```
 
@@ -359,20 +380,20 @@ Feeds **V10, V11, V12** and most later helicopter-flight modules.
 
 ![Master B — BET blade element and velocity triangle](../assets/figures/module-1/master-b-bet-blade-element.svg)
 
-The SVG is the editable source, not a screenshot. It is deliberately organised into named groups so the same asset can become progressive instructor reveals and HeliLab states.
+The SVG is an editable **derived** source asset, not the physics authority. It is organised into named groups so the same asset can become progressive instructor reveals and media states.
 
 | SVG group | Teaching state |
 |---|---|
-| `reference-frame`, `blade-element` | persistent geometry |
-| `velocity-vr`, `velocity-vi` | input velocities |
-| `velocity-vrel`, `angle-phi` | V10 constructed flow geometry |
-| `angle-theta`, `angle-alpha` | V11 AOI / INFLOW / AOA relationship |
+| `reference-frame`, `blade-element`, `chord-line` | persistent geometry |
+| `velocity-vrot`, `velocity-axial` | input velocities |
+| `velocity-vrel`, `angle-phi` | V10 flow geometry |
+| `angle-theta`, `angle-alpha` | V11 blade pitch / inflow / AOA relationship |
 | `forces-local` | V12 FL / FD / TAF |
-| `forces-resolved` | V12 FV / FH |
+| `forces-resolved` | V12 dT (FV) / FH |
 | `legend` | optional orientation layer |
 
-!!! warning "Master B is a controlled source figure"
-    Geometry, vector direction and labels should be technically reviewed before this asset becomes the authoritative HeliLab implementation. Derived views should hide/show or transform these groups rather than redraw the model independently.
+!!! success "Master B convention status"
+    The pre-Stage-2 conflicts C1–C10 have been resolved in the shared **BET Visual & Physics Contract**. Master B must be checked against that contract and HeliLab before implementation or media export; future edits must not introduce an independent diagram language.
 
 ### Master C — Local-to-rotor summation
 
@@ -389,7 +410,7 @@ Feeds **V08, V09, V13, V14**.
 | V03 | M1-01 | ρ / v controls; predict q/force tendency |
 | V05 | M1-02 | independently change θ and flow direction |
 | V07 | M1-03 | vary α through attached/stall region |
-| V09 | M1-04 setup | select radial station / see vr dependency |
+| V09 | M1-04 setup | select radial station / see vrot dependency |
 | V10–V12 | **M1-04 core** | build local velocity triangle, angles and forces |
 | V13–V14 | M1-04 consequence | connect local result to rotor tendency |
 | V15 | post-mission evidence | reconstruct collective causal chain |
@@ -418,12 +439,16 @@ If NotebookLM generates the narration/video structure, the technical diagrams sh
 
 Before a Module 1 figure is approved:
 
-- [ ] Is the reference airflow convention consistent?
+- [ ] Does vrel point upstream → blade?
+- [ ] Does the velocity-triangle topology match HeliLab?
 - [ ] Is θ clearly different from α?
 - [ ] Is φ measured against the intended reference?
 - [ ] Is FL normal to vrel?
-- [ ] Is FD aligned with the local relative-flow reference used in the project convention?
-- [ ] Are local FV/FH visually separated from whole-rotor T/Mbrake?
+- [ ] Is FD aligned with the adopted local relative-flow convention?
+- [ ] Are FL/FD/TAF/FH using the semantic colour contract?
+- [ ] Does normal-flight FH point aft/opposite blade travel?
+- [ ] Are local dT (FV)/FH visually separated from whole-rotor T/Mbrake?
+- [ ] Is “AOI” absent from the shared primary student-facing labels?
 - [ ] Does the figure avoid implying that tip velocity alone determines maximum lift?
 - [ ] Does stall depend on α/separation rather than a “low speed” label?
 - [ ] Can the figure be read at normal desktop width?
@@ -440,7 +465,7 @@ Before a Module 1 figure is approved:
 2. Master A — local aerofoil
 3. Master C — local-to-rotor summation
 4. derive V01–V15 states
-5. implement M1-04 from Master B
+5. implement M1-04 using the shared contract
 6. build instructor deck using the same assets
 7. create controlled pre-/post-study media
 
