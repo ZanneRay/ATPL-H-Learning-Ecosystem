@@ -1,5 +1,5 @@
 (() => {
-  const SELECTOR = '.mermaid, .md-content img, .md-content svg:not(.mermaid svg)';
+  const SELECTOR = '.mermaid, .md-content img, .md-content > svg, .md-content p > svg';
 
   function createViewer() {
     const viewer = document.createElement('div');
@@ -23,22 +23,13 @@
   const stage = viewer.querySelector('.diagram-viewer__stage');
   const content = viewer.querySelector('.diagram-viewer__content');
   const resetButton = viewer.querySelector('[data-action="reset"]');
-  let scale = 1;
-  let x = 0;
-  let y = 0;
-  let dragging = false;
-  let startX = 0;
-  let startY = 0;
+  let scale = 1, x = 0, y = 0, dragging = false, startX = 0, startY = 0;
 
   function render() {
-    content.style.transform = `translate(${x}px, ${y}px) scale(${scale})`;
+    content.style.transform = `translate(calc(-50% + ${x}px), calc(-50% + ${y}px)) scale(${scale})`;
     resetButton.textContent = `${Math.round(scale * 100)}%`;
   }
-
-  function reset() {
-    scale = 1; x = 0; y = 0; render();
-  }
-
+  function reset() { scale = 1; x = 0; y = 0; render(); }
   function close() {
     viewer.classList.remove('is-open');
     viewer.setAttribute('aria-hidden', 'true');
@@ -46,29 +37,51 @@
     content.innerHTML = '';
   }
 
-  function open(source) {
-    content.innerHTML = '';
+  function cloneForViewer(source) {
+    // Mermaid renders its actual figure as an SVG inside the .mermaid wrapper.
+    // Clone that rendered SVG directly; cloning the wrapper can leave a blank
+    // modal because Mermaid's generated IDs/styles are tied to the live DOM.
+    if (source.classList && source.classList.contains('mermaid')) {
+      const svg = source.querySelector('svg');
+      if (!svg) return null;
+      const clone = svg.cloneNode(true);
+      clone.removeAttribute('id');
+      clone.style.maxWidth = 'none';
+      clone.style.width = 'min(1500px, 90vw)';
+      clone.style.height = 'auto';
+      return clone;
+    }
     const clone = source.cloneNode(true);
     clone.removeAttribute('id');
     clone.classList.remove('zoomable-diagram');
     clone.style.maxWidth = 'none';
-    clone.style.width = 'auto';
+    clone.style.width = 'min(1500px, 90vw)';
     clone.style.height = 'auto';
+    return clone;
+  }
+
+  function open(source) {
+    const clone = cloneForViewer(source);
+    if (!clone) return;
+    content.innerHTML = '';
     content.appendChild(clone);
-    reset();
     viewer.classList.add('is-open');
     viewer.setAttribute('aria-hidden', 'false');
     document.body.classList.add('diagram-viewer-open');
+    reset();
   }
 
   function enhance(root = document) {
     root.querySelectorAll(SELECTOR).forEach((el) => {
       if (el.closest('.diagram-viewer') || el.dataset.zoomReady) return;
+      // Do not separately enhance the SVG inside Mermaid; the wrapper owns it.
+      if (el.tagName === 'svg' && el.closest('.mermaid')) return;
       el.dataset.zoomReady = 'true';
       el.classList.add('zoomable-diagram');
       el.setAttribute('title', 'Click to enlarge');
       el.addEventListener('click', (event) => {
         event.preventDefault();
+        event.stopPropagation();
         open(el);
       });
     });
@@ -80,32 +93,23 @@
     if (action === 'in') { scale = Math.min(5, scale * 1.25); render(); }
     if (action === 'out') { scale = Math.max(0.25, scale / 1.25); render(); }
     if (action === 'reset') reset();
-    if (e.target === viewer) close();
   });
-
+  stage.addEventListener('dblclick', () => { scale = Math.min(5, scale * 1.4); render(); });
   stage.addEventListener('wheel', (e) => {
     e.preventDefault();
     scale = Math.max(0.25, Math.min(5, scale * (e.deltaY < 0 ? 1.12 : 0.89)));
     render();
   }, { passive: false });
-
   stage.addEventListener('pointerdown', (e) => {
-    if (e.target.closest('.diagram-viewer__toolbar')) return;
-    dragging = true;
-    startX = e.clientX - x;
-    startY = e.clientY - y;
-    stage.setPointerCapture(e.pointerId);
-    stage.classList.add('is-dragging');
+    dragging = true; startX = e.clientX - x; startY = e.clientY - y;
+    stage.setPointerCapture(e.pointerId); stage.classList.add('is-dragging');
   });
   stage.addEventListener('pointermove', (e) => {
     if (!dragging) return;
-    x = e.clientX - startX;
-    y = e.clientY - startY;
-    render();
+    x = e.clientX - startX; y = e.clientY - startY; render();
   });
   stage.addEventListener('pointerup', () => { dragging = false; stage.classList.remove('is-dragging'); });
   stage.addEventListener('pointercancel', () => { dragging = false; stage.classList.remove('is-dragging'); });
-
   document.addEventListener('keydown', (e) => {
     if (!viewer.classList.contains('is-open')) return;
     if (e.key === 'Escape') close();
@@ -114,7 +118,7 @@
     if (e.key === '0') reset();
   });
 
-  const boot = () => setTimeout(() => enhance(document), 350);
+  const boot = () => setTimeout(() => enhance(document), 500);
   if (typeof document$ !== 'undefined') document$.subscribe(boot);
   else document.addEventListener('DOMContentLoaded', boot);
   new MutationObserver(() => enhance(document)).observe(document.body, { childList: true, subtree: true });
