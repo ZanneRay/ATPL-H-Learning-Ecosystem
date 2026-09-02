@@ -1,0 +1,149 @@
+schema_version: 0.1
+subject: "082 Principles of Flight (Helicopter)"
+status: working
+source_basis:
+  textbook: "POF_bookV0.pdf — EASA Part-FCL ATPL(H) Subject 082 Learning Objectives Cross-Reference"
+  verification: "Verify against currently applicable EASA source before curriculum freeze"
+
+reasoning_levels:
+  - identify
+  - describe
+  - explain
+  - predict
+  - diagnose
+  - transfer
+
+modules:
+  M1:
+    title: "Aerodynamic foundations & building rotor lift"
+    hours: 4.0
+    driving_question: "How can a rotating blade create and control rotor thrust?"
+  M2:
+    title: "Hover, climb & descent"
+    hours: 4.5
+  M3:
+    title: "Transition & forward-flight asymmetry"
+    hours: 5.0
+  M4:
+    title: "Forward-flight performance & aerodynamic limits"
+    hours: 4.5
+  M5:
+    title: "Stability, control & tail rotor"
+    hours: 4.5
+  M6:
+    title: "Autorotation & rotor energy"
+    hours: 5.0
+  M7:
+    title: "Integration & mastery"
+    hours: 4.5
+
+learning_objectives:
+  - code: "082 01 01 02"
+    title: "Definitions and basic concepts about air"
+    primary_module: M1
+    reasoning_target: explain
+    prerequisites: []
+    concepts: [air_density, pressure, relative_airflow]
+    helilab: {suitability: supporting, mission: null}
+    evidence: "Explain how a change in density changes aerodynamic force when other variables are held constant."
+    retrieval: [M2, M4]
+
+  - code: "082 01 01 03"
+    title: "Newton's laws"
+    primary_module: M1
+    reasoning_target: explain
+    prerequisites: ["082 01 01 02"]
+    concepts: [force, acceleration, action_reaction]
+    helilab: {suitability: supporting, mission: null}
+    evidence: "Connect rotor force production to an aircraft-level reaction without substituting Newtonian language for the blade-force model."
+    retrieval: [M2, M6]
+
+  - code: "082 01 01 04"
+    title: "Basic concepts of airflow"
+    primary_module: M1
+    reasoning_target: predict
+    prerequisites: ["082 01 01 02"]
+    concepts: [relative_airflow, velocity_vector, dynamic_pressure]
+    helilab: {suitability: core, mission: M1-01}
+    evidence: "Construct the local relative-airflow vector from the relevant velocity components and predict the direction of change."
+    retrieval: [M2, M3, M4, M6]
+
+  - code: "082 01 02 01"
+    title: "Aerofoil section geometry"
+    primary_module: M1
+    reasoning_target: describe
+    prerequisites: []
+    concepts: [chord, camber, thickness, angle_of_incidence]
+    helilab: {suitability: supporting, mission: M1-02}
+    evidence: "Correctly annotate the reference geometry used in later blade-element diagrams."
+    retrieval: [M4]
+
+  - code: "082 01 02 02"
+    title: "Aerodynamic forces on aerofoil elements"
+    primary_module: M1
+    reasoning_target: predict
+    prerequisites: ["082 01 01 04", "082 01 02 01"]
+    concepts: [lift, drag, total_aerodynamic_force, angle_of_attack, dynamic_pressure]
+    helilab: {suitability: core, mission: M1-02}
+    evidence: "Given a change in local velocity or AoA, predict the qualitative change in lift, drag and resultant force."
+    retrieval: [M2, M3, M4, M5, M6]
+
+  - code: "082 01 02 03"
+    title: "Stall"
+    primary_module: M1
+    reasoning_target: explain
+    prerequisites: ["082 01 02 02"]
+    concepts: [critical_angle_of_attack, separation, lift_loss, drag_rise]
+    helilab: {suitability: core, mission: M1-03}
+    evidence: "Explain stall as an AoA/flow-separation phenomenon and distinguish it from low-speed shorthand."
+    retrieval: [M2, M4]
+
+  - code: "082 01 03 02"
+    title: "Airflow pattern and influence on lift"
+    primary_module: M1
+    reasoning_target: explain
+    prerequisites: ["082 01 02 02"]
+    concepts: [three_dimensional_flow, tip_effects, lift_distribution]
+    helilab: {suitability: supporting, mission: null}
+    evidence: "Explain why a real blade cannot be treated as an infinite two-dimensional aerofoil."
+    retrieval: [M2, M3, M4]
+
+  - code: "082 01 03 03"
+    title: "Induced drag"
+    primary_module: M1
+    reasoning_target: explain
+    prerequisites: ["082 01 03 02"]
+    concepts: [induced_drag, induced_velocity]
+    helilab: {suitability: supporting, mission: null}
+    evidence: "Relate induced effects to the force/power model used later in hover."
+    retrieval: [M2, M4]
+
+  - code: "082 04 01 01"
+    title: "Airflow through the rotor disc and around the blades"
+    primary_module: M1
+    reasoning_target: predict
+    prerequisites: ["082 01 01 04", "082 01 02 02"]
+    concepts: [rotational_velocity, induced_velocity, relative_airflow, inflow_angle, effective_angle_of_attack]
+    helilab: {suitability: core, mission: M1-04}
+    evidence: "Use the BET chain velocities → angles → section forces → rotor outputs for a hover-state blade element."
+    retrieval: [M2, M3, M4, M6]
+
+  - code: "082 05 01 01"
+    title: "Forces and stresses on the blade"
+    primary_module: M1
+    reasoning_target: explain
+    prerequisites: ["082 04 01 01"]
+    concepts: [aerodynamic_loading, centrifugal_force, blade_force_balance]
+    helilab: {suitability: supporting, mission: M1-05}
+    evidence: "Identify the dominant blade forces and explain why rotor speed strongly changes centrifugal loading."
+    retrieval: [M3, M4]
+
+  - code: "082 05 01 02"
+    title: "Centrifugal turning moment"
+    primary_module: M1
+    reasoning_target: explain
+    prerequisites: ["082 05 01 01"]
+    concepts: [centrifugal_turning_moment, coning, feathering_axis]
+    helilab: {suitability: future, mission: null}
+    evidence: "Explain the direction and cause of CTM from coned-blade geometry."
+    retrieval: [M3]
