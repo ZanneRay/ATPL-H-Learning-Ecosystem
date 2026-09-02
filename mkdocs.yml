@@ -1,0 +1,51 @@
+site_name: ATPL(H) Learning Ecosystem
+site_description: Visual-first curriculum and learning-design handbook for ATPL(H), starting with Subject 082 Principles of Flight (Helicopters)
+repo_url: https://github.com/ZanneRay/ATPL-H-Learning-Ecosystem
+repo_name: ZanneRay/ATPL-H-Learning-Ecosystem
+
+theme:
+  name: material
+  language: en
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - toc.follow
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+
+nav:
+  - Home: index.md
+  - Start Here:
+      - Handbook Overview: curriculum-handbook/HANDBOOK-OUTLINE.md
+      - Learning Ecosystem: architecture/LEARNING-ECOSYSTEM.md
+      - Ecosystem Poster: architecture/ECOSYSTEM-POSTER.md
+      - Student Learning Journey: architecture/STUDENT-LEARNING-JOURNEY.md
+  - 082 Principles of Flight:
+      - Curriculum Blueprint: ../subjects/082-principles-of-flight/curriculum/CURRICULUM-BLUEPRINT.md
+      - 32-hour Curriculum Map: ../subjects/082-principles-of-flight/curriculum/32-HOUR-CURRICULUM-MAP.md
+  - Standards:
+      - Documentation Standard: standards/DOCUMENTATION-STANDARD.md
+
+extra:
+  generator: false
+
+copyright: Working design handbook — ATPL(H) Learning Ecosystem
