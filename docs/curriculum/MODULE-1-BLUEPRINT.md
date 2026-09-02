@@ -10,7 +10,7 @@
 
 -   **DURATION**
 
-    **4.0 hours** — foundation module
+    **4.0 contact hours including protected breaks and transition buffer**
 
 -   **REASONING TARGET**
 
@@ -18,47 +18,48 @@
 
 -   **MODULE END STATE**
 
-    Given a local blade condition, the student can reason from airflow inputs to rotor thrust and torque consequences.
+    Given a new local blade condition, the student can reconstruct the aerodynamic model from velocity inputs rather than recall a completed diagram.
 
 </div>
+
+!!! info "Normative timing"
+    This blueprint defines architecture, not minute-by-minute delivery. The current pilot timing is governed only by the **Module 1 Instructor Lesson Plan**. The pilot plans approximately **190 minutes of learning activity + 20 minutes protected breaks + 30 minutes distributed transition/setup/overrun buffer**.
 
 ## The module in one view
 
 | Learning move | What the student actually does | Observable evidence |
 |---|---|---|
-| **CONCEPT** | Works with relative airflow, inflow, AoA, local aerodynamic force and rotor output | Correctly identifies the variables in a blade-element state |
-| **LOs** | Connects aerodynamic foundations to the first rotor model | LO coverage is traceable in the Subject 082 mapping |
-| **PREDICT** | Commits to what changes when pitch, airflow, density or rotor speed changes | Prediction recorded before reveal |
-| **BUILD** | Constructs the blade-element model in causal order | Rebuilds the diagram without copying it |
-| **EXPLORE** | Changes one or two variables in HeliLab | Prediction compared with observed model response |
-| **EXPLAIN** | Explains the mechanism from input to force/output | 60–90 second causal explanation |
-| **APPLY** | Reuses the model in a changed hover/density condition | Correct direction of change with justification |
-| **EVIDENCE** | Completes mixed diagram, explanation and exam-bridge checks | Causal accuracy rather than answer recognition alone |
+| **CONCEPT** | Works with relative airflow, inflow, AOA, local aerodynamic force and rotor output | identifies variables in a blade-element state |
+| **PREDICT** | Commits before reveal and gives a short reason at selected core gates | prediction + causal clause |
+| **BUILD** | Constructs the blade-element model in causal order | rebuilds the velocity triangle without copying it |
+| **EXPLORE** | Tests relationships in HeliLab | prediction compared with observed response |
+| **EXPLAIN** | Explains input → geometry → force → output | causal explanation / peer teach-back |
+| **APPLY** | Repairs the original collective problem using the completed model | original-vs-final annotation |
+| **TRANSFER** | Constructs a fresh, unrehearsed blade-element state | independent exit construction |
+| **RETRIEVE** | Reconstructs the model after delay and bridges to exam format | R1/R2 retrieval; formal assessment remains separate |
 
-This page is the first **worked proof** of the learning architecture. The labels above only matter if they lead to observable student behaviour.
+The module is a worked proof of the learning architecture. Exposure to a term is not evidence that the student can use it.
 
 ---
 
 ## The model students take forward
 
-The source textbook treats Blade Element Theory as a qualitative causal model that connects basic aerodynamics to rotor behaviour. Its technical sequence is preserved here:
-
 ```mermaid
 flowchart LR
     V["<b>1 · VELOCITIES</b><br/>What airflow does this element see?"] --> A["<b>2 · ANGLES</b><br/>φ and effective α"]
     A --> F["<b>3 · SECTION FORCES</b><br/>FL · FD · TAF"]
-    F --> R["<b>4 · ROTOR OUTPUT</b><br/>thrust · braking torque"]
+    F --> R["<b>4 · RESOLVED / ROTOR CONSEQUENCE</b><br/>normal · in-plane · rotor tendency"]
 ```
-
-**The course keeps returning to this chain.** Hover, climb, descent, forward flight and autorotation change the inputs and boundary conditions; students should not need a completely new explanatory language each time.
 
 ### Minimum reconstruction standard
 
-By the end of Module 1 a student should be able to reconstruct, in words or as a sketch:
+By the end of Module 1 the student must be able to reconstruct:
 
-**local velocity inputs → relative airflow → inflow angle → effective AoA → lift/drag → resultant force → resolved components → rotor thrust/torque**
+**local velocity inputs → relative airflow → inflow angle → effective AOA → lift/drag → resultant force → resolved components → rotor consequence**
 
-The student does not need every symbol perfectly from memory on first exposure. The **causal order** must become stable.
+For the pilot, the local in-plane/braking component is introduced qualitatively as part of force resolution. Quantitative torque/power development belongs later.
+
+A student who can reproduce **α = θ − φ** but cannot construct the velocity triangle has **not** met the Module 1 end state.
 
 ---
 
@@ -66,111 +67,61 @@ The student does not need every symbol perfectly from memory on first exposure. 
 
 ```mermaid
 flowchart LR
-    P["<b>PREDICT</b><br/>What changes first?"] --> B["<b>BUILD</b><br/>Construct BET"]
-    B --> E["<b>EXPLORE</b><br/>Manipulate variables"]
-    E --> X["<b>EXPLAIN</b><br/>Trace the mechanism"]
-    X --> A["<b>APPLY</b><br/>Change the condition"]
-    A --> C["<b>EVIDENCE</b><br/>Show what you can reason"]
+    P["<b>PREDICT</b>"] --> B["<b>BUILD</b>"]
+    B --> E["<b>EXPLORE</b>"]
+    E --> X["<b>EXPLAIN</b>"]
+    X --> A["<b>APPLY</b>"]
+    A --> T["<b>TRANSFER</b>"]
+    T --> R["<b>RETRIEVE</b>"]
 ```
 
 ### PREDICT — commit before explanation
 
-**Prompt**
-
 > A helicopter is established in a stable hover. Rotor speed remains constant. The pilot raises collective. At one blade element, what changes first — and what happens next?
 
-Students make an individual prediction before the full model is shown. A sketch is preferable to selecting an answer.
+Students sketch before the full model is shown. At selected core gates, a direction-only answer is insufficient: the student also states the causal reason.
 
-**Why:** this exposes whether the student currently treats collective as a direct “more thrust” control or can already reason through blade pitch, local AoA and force.
+### BUILD — geometry before formula
 
-### BUILD — construct rather than receive the model
+The model is constructed in four passes:
 
-The instructor builds the model in four passes:
+1. **Local velocity inputs** — rotational velocity **vrot = Ωr** plus induced/axial component.
+2. **Flow geometry** — construct **vrel** and obtain inflow angle **φ** from the velocity triangle.
+3. **Blade geometry and forces** — position blade pitch **θ**, determine effective **α**, then orient FL and FD and form TAF.
+4. **Resolved consequence** — resolve the local aerodynamic force and distinguish local element output from whole-rotor output.
 
-1. **Local velocity inputs** — rotational velocity and axial/induced components form local relative airflow.
-2. **Flow geometry** — relative airflow establishes inflow angle; effective AoA depends on blade pitch relative to that airflow.
-3. **Section forces** — local lift and drag produce a total aerodynamic force.
-4. **Rotor consequence** — force components are resolved and summed into thrust and braking torque.
+Only after the geometry is constructed is **α = θ − φ** named. The equation is a summary of the geometry, not a shortcut around it.
 
-The textbook's compact relation **AOA = AOI − INFLOW (α = θ − φ)** is used as a reasoning relation, not merely as a formula to recall.
+### EXPLORE — HeliLab as a thinking tool
 
-### EXPLORE — test the model in HeliLab
+| Mission | Mode | Purpose |
+|---|---|---|
+| **M1-01 Force dependency** | Model | inspect airflow/density dependency where available |
+| **M1-02 AOA ≠ pitch** | Explore | separate blade pitch from effective AOA |
+| **M1-03 Stall boundary** | Explore | brief qualitative mechanism check |
+| **M1-04 Build a blade element** | Mission | guided construct → predict → reveal |
 
-HeliLab is used only where manipulating the relationship adds learning value. Module 1 uses four progressive interactions:
-
-| Mission | Mode | Student manipulation | Required evidence |
-|---|---|---|---|
-| **M1-01 Force dependency** | Model | velocity / density | identify what changes and why |
-| **M1-02 AoA ≠ pitch** | Explore | pitch and inflow separately | explain how AoA changes with θ fixed |
-| **M1-03 Stall boundary** | Explore | effective AoA | predict before crossing the modelled boundary |
-| **M1-04 Build a blade element** | Mission | local velocity + pitch state | complete the full BET causal chain |
-
-#### M1-04 — core mission
-
-```mermaid
-flowchart LR
-    S1["Set velocities"] --> S2["Construct vrel"]
-    S2 --> S3["Predict φ / α"]
-    S3 --> S4["Predict forces"]
-    S4 --> S5["Resolve TAF"]
-    S5 --> S6["Infer rotor effect"]
-```
-
-The answer layer is withheld at the key prediction points. **Moving sliders without committing to a prediction is not completion.**
+M1-04 is deliberately not the formal Module 1 assessment. HeliLab supports learning and formative thinking; it is not the pilot system of record.
 
 ### EXPLAIN — make causal reasoning visible
 
-Students explain the core mission to a peer or instructor in approximately 60–90 seconds. The explanation must connect cause to consequence rather than list definitions.
+Peer teach-back remains a learning activity. It is **not** treated as stored per-student rubric evidence. A strong explanation connects:
 
-A strong response sounds structurally like:
+**input → relative airflow → inflow geometry → effective AOA → local force → resolved consequence**.
 
-> *This input changes the local relative airflow... therefore the inflow geometry changes... that changes effective AoA... which changes the local aerodynamic force... and after resolving/summing the force the rotor consequence is...*
+### APPLY — repair the original model
 
-The wording may vary. The causal links may not.
+Students return to their original collective prediction and annotate it rather than write a clean replacement. This preserves visible conceptual change.
 
-### APPLY — change one condition
+### TRANSFER — unrehearsed construction
 
-Return to the opening hover problem, then change the environment:
+The primary end-of-module transfer snapshot is a **new blade-element state not used in the worked examples or canonical M1-04 mission**. The student receives the reference plane, vrot, an axial/induced component and θ, but no vrel, φ, α or force vectors.
 
-> Rotor speed remains constant and collective is raised in hover. Now repeat your reasoning for substantially lower air density. Which links in your original explanation remain the same, and where does density enter the model?
+The student must construct the velocity triangle, obtain φ, determine α, orient FL/FD, resolve the qualitative local consequence and explain the rotor tendency. The highest formative level cannot be awarded if the velocity triangle is absent or geometrically incoherent, even if the final tendency is correct by chance.
 
-This is deliberately close enough to reuse the model but different enough that a memorised opening answer is insufficient.
+### RETRIEVE — retention and exam bridge
 
-### EVIDENCE — show mastery, not exposure
-
-The formative checkpoint uses three states:
-
-| State | Changed condition | Student must show |
-|---|---|---|
-| **A** | same θ, increased induced velocity | effect on inflow → AoA → force tendency |
-| **B** | increased θ, same inflow | effect on AoA → local force → rotor output |
-| **C** | same geometry, reduced density | where density enters and what follows |
-
-The student then answers the original hover question again. The comparison between the first and final explanation makes conceptual change visible.
-
----
-
-## Four-hour learning timeline
-
-```mermaid
-flowchart LR
-    A["0:00<br/><b>Orient + Predict</b>"] --> B["0:15<br/><b>Aero language</b>"]
-    B --> C["0:45<br/><b>Local aerofoil</b>"]
-    C --> D["1:15<br/><b>HeliLab</b>"]
-    D --> E["1:40<br/><b>Stall + blade</b>"]
-    E --> F["2:10<br/><b>Rotor airflow</b>"]
-    F --> G["2:40<br/><b>BET</b>"]
-```
-
-```mermaid
-flowchart LR
-    G["2:40<br/><b>BET</b>"] --> H["3:10<br/><b>M1-04 Mission</b>"]
-    H --> I["3:30<br/><b>Apply</b>"]
-    I --> J["3:50<br/><b>Evidence</b>"]
-    J --> K["4:00<br/><b>Exit</b>"]
-```
-
-The split timeline is intentional: overview diagrams remain readable at normal desktop width.
+Delayed retrieval is part of the design. Exam-format bridging belongs in the retrieval/formal-assessment layer rather than consuming the four contact hours. Public curriculum documentation should use authored prototype items or describe the assessment route; licensed or sensitive question-bank material must not be published here.
 
 ---
 
@@ -178,66 +129,83 @@ The split timeline is intentional: overview diagrams remain readable at normal d
 
 | Misconception | Probe | Required conceptual correction |
 |---|---|---|
-| **AoA = blade pitch** | Can α change while θ stays constant? | AoA depends on local relative airflow |
-| **Lift acts upward** | Upward relative to what? | Lift is perpendicular to local relative airflow |
-| **Drag points aft** | Aft relative to what? | Drag opposes local relative airflow |
+| **AOA = blade pitch** | Can α change while θ stays constant? | AOA depends on local relative airflow |
+| **Lift acts upward** | Change the airflow direction and ask again | lift is perpendicular to local relative airflow |
+| **Drag points aft** | What is the adopted relative-flow reference? | drag direction follows the declared local airflow convention |
 | **Tip and root see the same speed** | What happens to Ωr as r changes? | rotational velocity varies with radius |
-| **Local lift = rotor thrust** | What still has to happen? | resolve and sum local forces |
-| **Low speed causes stall** | What defines the stall condition? | critical AoA / separation, not speed alone |
-| **Collective directly makes thrust** | What changes at the blade first? | pitch is the input; rotor force is downstream |
-
-These are not side notes. They determine where prediction and explanation are placed.
-
----
-
-## LO → learning → evidence traceability
-
-Module 1 is the primary instructional home for much of **082 01 Subsonic Aerodynamics**, selected velocity/compressibility foundations from **082 02**, rotorcraft orientation from **082 03**, the first main-rotor airflow model from **082 04**, and selected introductory mechanics from **082 05**.
-
-| LO family | Learning function here | Evidence route | Later retrieval |
-|---|---|---|---|
-| **082 01** | aerodynamic language + local force model | sketch, retrieval, changed-condition explanation | all later rotor modules |
-| **082 02** | velocity/Mach foundation | identify and explain speed relationship | forward-flight limits |
-| **082 03** | helicopter/rotor orientation | configuration recognition in context | tail-rotor/configuration work |
-| **082 04** | first rotor airflow / thrust model | BET mission + hover application | hover, forward flight, autorotation |
-| **082 05** | local blade forces / rotor-speed bridge | qualitative force reasoning | rotor motion and mechanics |
-
-The detailed individual LO allocation remains in the dedicated **EASA LO Mapping**. An LO is not considered “done” because it appeared in this module; foundational concepts are deliberately retrieved in later flight regimes.
+| **Local lift = rotor thrust** | What still has to happen? | resolve local force, then sum elements |
+| **Low speed causes stall** | What defines the stall condition? | critical AOA / separation, not speed alone |
+| **Collective directly makes thrust** | What changes at the blade first? | pitch is an input; rotor force is downstream |
+| **φ changes because the formula says so** | Remove the equation | construct the velocity triangle |
 
 ---
 
-## HeliLab role established by this module
+## Module 1 scope contract
 
-Module 1 also establishes the progressive HeliLab scaffolding that later modules will reuse:
+A four-hour contact module cannot honestly be the full instructional home for every regulatory LO that depends on aerodynamic foundations. Module 1 therefore distinguishes three roles:
 
-```mermaid
-flowchart LR
-    M["<b>MODEL</b><br/>guided + labelled"] --> E["<b>EXPLORE</b><br/>change variables"]
-    E --> MI["<b>MISSION</b><br/>predict + explain"]
-    MI --> C["<b>CHALLENGE</b><br/>minimal guidance + transfer"]
-```
+| Role | Meaning |
+|---|---|
+| **CONTACT CORE** | explicitly built, practised and checked during the four-hour session |
+| **PRE-STUDY / REFERENCE FOUNDATION** | required orientation or prerequisite knowledge, available in approved source material but not claimed as fully taught in contact time |
+| **REASSIGNED PRIMARY** | regulatory content whose substantive teaching belongs in a later module and is only previewed here if useful |
 
-**Model** makes relationships visible. **Explore** lets students test one or two variables. **Mission** requires prediction and causal explanation. **Challenge** removes scaffolding and introduces transfer; it becomes more prominent in later modules.
+### Contact core
+
+The contact core is deliberately narrow: relative airflow and dynamic-pressure foundations; aerofoil/chord/θ/α; lift/drag/TAF orientation; qualitative stall mechanism; **vrot = Ωr**; velocity-triangle construction; φ and α from geometry; local force resolution; local-versus-rotor distinction; and the complete qualitative BET causal chain.
+
+### Reassigned or deferred depth
+
+Detailed 3-D blade-flow effects, induced-drag development, fuselage airflow, compressibility/Mach operational limits, rotorcraft-configuration depth, anti-torque/tail-rotor aerodynamics, blade stresses/centrifugal turning moment, hover power, complete flapping/lead-lag mechanics, VRS, retreating-blade stall, autorotation and full stability/control are not claimed as four-hour Module 1 contact outcomes. Their primary homes are defined in the LO map and later module designs.
 
 ---
 
-## Design decisions proven or tested here
+## HeliLab evidence boundary
+
+For the initial pilot:
+
+- HeliLab is a **learning and formative-thinking tool**, not the formal evidence store;
+- structured prediction gates may be required before reveal;
+- session-state feedback is sufficient;
+- no LMS persistence, instructor dashboard or natural-language scoring is required;
+- HeliLab's existing progress/mastery tracker is a **student-facing self-study/progress mechanism**, not the curriculum's 0–3 evidence model;
+- formal controlled assessment remains outside HeliLab unless a later architecture decision changes this.
+
+---
+
+## Pilot evidence strategy
+
+The strongest pilot evidence is intentionally simple:
+
+- original prediction sheet and final annotation;
+- independent velocity-triangle construction checks;
+- unrehearsed transfer/exit artefact;
+- delayed retrieval;
+- instructor pilot observations tied to collected artefacts where practical.
+
+Peer teach-back is valuable learning but is not counted as stored assessment evidence. Confidence ratings remain reflective only.
+
+---
+
+## Design decisions established here
 
 !!! success "Module 1 design standard"
-    **1. BET is the common reasoning language.** Later modules reuse the same visual and causal conventions.
+    **1. BET is the common reasoning language.** Later modules reuse the same causal model.
 
-    **2. Prediction precedes reveal.** HeliLab interaction is not treated as evidence unless the student has committed to an expectation where appropriate.
+    **2. Prediction precedes reveal, but core predictions require reasoning rather than one-bit guessing.**
 
-    **3. HeliLab has a bounded role.** Dynamic relationships are manipulated; terminology is not made interactive merely for novelty.
+    **3. Geometry precedes α = θ − φ.** The velocity triangle is the master construction.
 
-    **4. Local blade quantities and whole-rotor outputs are visually separated.**
+    **4. HeliLab has a bounded role.** It supports thinking; it does not become a parallel formal assessment architecture.
 
-    **5. The module ends with transfer of a causal model, not completion of an introductory fact list.**
+    **5. Local blade quantities and whole-rotor outputs are visually separated.**
 
-    **6. Evidence is designed with the learning activity.** It is not added as a quiz after the lesson has already been designed.
+    **6. The module ends with unrehearsed construction/transfer, not a repeated practice item.**
+
+    **7. The Instructor Lesson Plan is the single normative pilot timeline.**
 
 ---
 
 ## Source-to-design note
 
-This worked module preserves the technical organisation of the current project textbook: aerodynamic foundations feed into Blade Element Theory, and BET connects local velocities, flow geometry, section forces and rotor outputs. The source also explicitly positions BET as a qualitative model for predicting rotor behaviour across hover, climb, descent and forward flight. The learning-design additions on this page — prediction-before-reveal, HeliLab scaffolding, peer explanation, changed-condition application and evidence design — are curriculum design choices layered onto that technical source structure.
+The technical spine — local velocities, relative airflow, inflow geometry, effective AOA, section forces and resolved rotor consequence — is derived from the approved project source material. Prediction-before-reveal, the contact/pre-study/reassigned scope model, peer explanation, unrehearsed transfer, HeliLab evidence boundary and pilot instrumentation are instructional-design decisions and must be validated in delivery.
