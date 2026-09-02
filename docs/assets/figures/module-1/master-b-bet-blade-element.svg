@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+<title id="title">Master B — BET blade element and velocity triangle</title>
+<desc id="desc">Reusable layered Blade Element Theory figure showing local TPP, blade chord, rotational and induced velocity, relative airflow, inflow and angle of attack, local aerodynamic forces and resolved force components.</desc>
+<defs>
+  <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker>
+  <style>
+    .bg{fill:#fff}.ref{stroke:#6b7280;stroke-width:2;stroke-dasharray:9 8}.blade{fill:#e5e7eb;stroke:#111827;stroke-width:3}.chord{stroke:#111827;stroke-width:2}.vec{fill:none;stroke-width:5;marker-end:url(#arrow)}.input{stroke:#2563eb}.constructed{stroke:#7c3aed}.force{stroke:#d97706}.resolved{stroke:#059669}.helper{stroke:#9ca3af;stroke-width:1.5;stroke-dasharray:5 5}.arc{fill:none;stroke-width:3}.txt{font-family:Inter,Arial,sans-serif;fill:#111827}.label{font-size:24px;font-weight:700}.small{font-size:18px}.muted{fill:#6b7280}.box{fill:#f9fafb;stroke:#d1d5db;stroke-width:1.5;rx:12}.inputText{fill:#1d4ed8}.constructedText{fill:#6d28d9}.forceText{fill:#b45309}.resolvedText{fill:#047857}
+  </style>
+</defs>
+<rect class="bg" width="1200" height="720"/>
+<g id="reference-frame">
+  <line class="ref" x1="110" y1="430" x2="1080" y2="430"/>
+  <text class="txt small muted" x="110" y="458">local TPP / rotational reference</text>
+</g>
+<g id="blade-element">
+  <g transform="rotate(-12 520 430)">
+    <path class="blade" d="M385 420 C430 393 530 394 655 420 C575 438 475 446 385 420 Z"/>
+    <line class="chord" x1="390" y1="420" x2="650" y2="420"/>
+  </g>
+  <text class="txt small" x="490" y="350">blade element</text>
+</g>
+<g id="velocity-vr">
+  <line class="vec input" x1="520" y1="430" x2="250" y2="430"/>
+  <text class="txt label inputText" x="275" y="408">v<tspan baseline-shift="sub" font-size="16">r</tspan> = Ωr</text>
+</g>
+<g id="velocity-vi">
+  <line class="vec input" x1="520" y1="430" x2="520" y2="590"/>
+  <text class="txt label inputText" x="540" y="565">v<tspan baseline-shift="sub" font-size="16">i</tspan></text>
+</g>
+<g id="velocity-vrel">
+  <line class="helper" x1="250" y1="430" x2="250" y2="590"/>
+  <line class="helper" x1="250" y1="590" x2="520" y2="590"/>
+  <line class="vec constructed" x1="520" y1="430" x2="250" y2="590"/>
+  <text class="txt label constructedText" x="330" y="535">v<tspan baseline-shift="sub" font-size="16">rel</tspan></text>
+</g>
+<g id="angle-phi">
+  <path class="arc constructed" stroke="#7c3aed" d="M445 430 A75 75 0 0 0 456 468"/>
+  <text class="txt label constructedText" x="420" y="482">φ</text>
+  <text class="txt small constructedText" x="360" y="505">INFLOW</text>
+</g>
+<g id="angle-theta">
+  <path class="arc input" stroke="#2563eb" d="M600 430 A80 80 0 0 0 598 413"/>
+  <text class="txt label inputText" x="615" y="413">θ</text>
+  <text class="txt small inputText" x="646" y="413">AOI / pitch</text>
+</g>
+<g id="angle-alpha">
+  <path class="arc constructed" stroke="#7c3aed" d="M453 468 A86 86 0 0 0 440 450"/>
+  <text class="txt label constructedText" x="450" y="443">α</text>
+  <text class="txt small constructedText" x="390" y="405">AOA = θ − φ</text>
+</g>
+<g id="forces-local">
+  <line class="vec force" x1="760" y1="430" x2="855" y2="270"/>
+  <text class="txt label forceText" x="865" y="275">F<tspan baseline-shift="sub" font-size="16">L</tspan></text>
+  <line class="vec force" x1="760" y1="430" x2="690" y2="390"/>
+  <text class="txt label forceText" x="645" y="375">F<tspan baseline-shift="sub" font-size="16">D</tspan></text>
+  <line class="vec force" x1="760" y1="430" x2="825" y2="285"/>
+  <text class="txt label forceText" x="790" y="325">TAF</text>
+</g>
+<g id="forces-resolved">
+  <line class="vec resolved" x1="760" y1="430" x2="760" y2="285"/>
+  <text class="txt label resolvedText" x="715" y="285">F<tspan baseline-shift="sub" font-size="16">V</tspan></text>
+  <line class="vec resolved" x1="760" y1="430" x2="825" y2="430"/>
+  <text class="txt label resolvedText" x="835" y="438">F<tspan baseline-shift="sub" font-size="16">H</tspan></text>
+  <line class="helper" x1="760" y1="285" x2="825" y2="285"/>
+  <line class="helper" x1="825" y1="285" x2="825" y2="430"/>
+</g>
+<g id="legend">
+  <rect class="box" x="825" y="515" width="300" height="145"/>
+  <text class="txt small" x="850" y="548"><tspan class="inputText" font-weight="700">INPUTS</tspan><tspan>  Ω · r · vᵢ · θ</tspan></text>
+  <text class="txt small" x="850" y="580"><tspan class="constructedText" font-weight="700">CONSTRUCT</tspan><tspan>  vᵣₑₗ · φ · α</tspan></text>
+  <text class="txt small" x="850" y="612"><tspan class="forceText" font-weight="700">LOCAL FORCE</tspan><tspan>  Fᴸ · Fᴰ · TAF</tspan></text>
+  <text class="txt small" x="850" y="644"><tspan class="resolvedText" font-weight="700">RESOLVE</tspan><tspan>  Fⱽ · Fᴴ</tspan></text>
+</g>
+<g id="caption">
+  <text class="txt label" x="70" y="75">Master B · Blade Element Theory</text>
+  <text class="txt small muted" x="70" y="105">VELOCITIES → ANGLES → SECTION FORCES → COMPONENTS</text>
+</g>
+</svg>
