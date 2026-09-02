@@ -12,10 +12,14 @@ The technical authority is:
 
 1. the verified HeliLab physics engine;
 2. `ZanneRay/helilab/PHYSICS_VISUAL_CONTRACT.md`;
-3. approved course-book aerodynamics and the established `\BETdiagram` construction, provided they do not conflict with 1–2;
+3. approved course-book aerodynamics and the established `\BETdiagram` construction;
 4. the curriculum's Module 1 progressive-reveal design.
 
-If a book, SVG, media or canvas rendering conflicts with the verified HeliLab convention, the renderer is corrected. A disagreement in the physics itself must be stopped and reviewed before implementation.
+The core rule is:
+
+> **Physics and relative geometry are invariant; page-left/page-right orientation is renderer-specific.**
+
+A book figure and an interactive HeliLab figure may therefore be horizontal mirrors of one another and both be correct, provided the **entire local coordinate system and every dependent element are mirrored coherently**. A disagreement in physics, sign meaning, or relative vector geometry must be stopped and reviewed before implementation.
 
 ---
 
@@ -35,16 +39,16 @@ The visual system exists so the learner can propagate a change through this chai
 
 # 2 · Authority and precedence
 
-When visual implementations differ, use this order:
+When implementations differ, use this order:
 
-1. **Physics correctness:** verified HeliLab physics.
-2. **Vector/sign/visual convention:** HeliLab `PHYSICS_VISUAL_CONTRACT.md` and this shared contract.
+1. **Physics correctness:** verified HeliLab physics and approved course aerodynamics.
+2. **Relative vector/sign meaning:** HeliLab `PHYSICS_VISUAL_CONTRACT.md` and this shared contract.
 3. **Instructional reveal order:** Module 1 Visual System / Learning Experience.
-4. **Renderer implementation:** TikZ, SVG, Canvas or media animation.
+4. **Renderer orientation and implementation:** TikZ, SVG, Canvas or media animation.
 
 The SVG is a **controlled derived asset**, not a source of aerodynamic truth.
 
-The existing book/TikZ BET macro remains valuable as the mature print implementation, but any convention that conflicts with the verified shared contract must be brought into alignment rather than propagated into new media.
+The existing book/TikZ BET macro remains a mature print implementation. Its mirrored page orientation is valid where the complete geometry is internally coherent. HeliLab remains the canonical **interactive** orientation for M1-04 and related widgets.
 
 ---
 
@@ -74,32 +78,60 @@ For Module 1, renderers may hide later layers, but they must not change their me
 
 ---
 
-# 4 · Coordinate and vector conventions
+# 4 · Coordinate, orientation and vector conventions
 
 ## 4.1 Reference plane
 
 The **local TPP / rotational reference stays horizontal where practical** in blade-element teaching diagrams. The blade chord must remain visually distinct from it.
 
-## 4.2 Velocity-triangle topology
+## 4.2 Renderer orientation and mirroring
 
-Use the established HeliLab topology consistently across Canvas, SVG, TikZ-derived teaching assets and media.
+The current HeliLab `wBladeElement` layout is the **canonical interactive orientation**. New HeliLab mission states should reuse it rather than inventing another local layout.
 
-- `vrot` is the canonical rotational-velocity label for students.
-- The perpendicular/induced component constructs the velocity triangle in the same orientation as HeliLab; do not mirror the triangle merely for page composition.
-- In the Module 1 hover reference state, only `vrot` and `vi` are active.
-- Additional forward-flight, climb/descent, flapping or body-rate terms appear later without changing the base topology.
+The established book/TikZ BET figure may use the horizontally mirrored orientation. Mirroring is a renderer-level transform, not a physics change.
 
-## 4.3 Relative airflow — arrow direction is fixed
+A valid mirror must transform the complete local construction together:
 
-`vrel` is drawn using the HeliLab/Leishman aerodynamic convention:
+- blade/aerofoil orientation and leading/trailing-edge relationship;
+- `vrot`;
+- induced/axial component;
+- `vrel` line and arrow convention used by that renderer;
+- θ, φ and α arcs;
+- FL, FD and TAF;
+- resolved normal and in-plane components;
+- construction helpers and dependent labels.
 
-**tail upstream → arrowhead at the blade element / leading-edge reference point.**
+**Never mirror only the aerofoil, only `vrel`, only the force set, or only one velocity leg.** That creates a half-mirrored diagram whose relationships are physically incoherent.
 
-Do not draw `vrel` from the blade outward/downstream. Although an opposite velocity-vector convention can be algebraically transformed, mixing the two conventions reverses the visual interpretation of φ, α and force orientation.
+Page-left/page-right is therefore **not** itself a physical sign convention. Use relational wording such as **upstream/downstream**, **toward the blade**, **opposite blade travel**, and **normal/in-plane relative to the rotor plane**.
 
-The direction of `vrel` must be derived from the active velocity components, never manually rotated for aesthetics.
+## 4.3 Velocity-triangle topology
 
-## 4.4 Angles
+Within one renderer, preserve one coherent triangle topology throughout a learning sequence.
+
+For HeliLab/M1-04, use the established HeliLab topology:
+
+- `vrot` is the canonical rotational-velocity label for students;
+- the axial/induced component completes the orthogonal velocity construction;
+- the resulting `vrel` line connects the velocity-component construction to the local blade reference;
+- in the Module 1 hover reference state, only `vrot` and `vi` are active;
+- additional forward-flight, climb/descent, flapping or body-rate terms appear later without replacing the base construction logic.
+
+A print renderer may show the horizontal mirror of this topology, provided §4.2 is satisfied.
+
+## 4.4 Relative airflow / relative-velocity arrow convention
+
+The **geometric line and angular relationships** are the physics-critical part. Arrowhead convention may differ between established renderers if the quantity is explicitly defined and the figure remains internally coherent.
+
+For HeliLab interactive teaching, `vrel` follows the existing HeliLab relative-airflow convention:
+
+**tail upstream → arrowhead at the blade-element / leading-edge reference point.**
+
+The established book/TikZ renderer may retain its own outward resultant-vector convention where already defined. Do not mix the HeliLab arrowhead convention into an otherwise book-oriented figure, or vice versa, without transforming and relabelling the entire construction.
+
+The direction/line of `vrel` must be derived from the active velocity components, never manually rotated for aesthetics.
+
+## 4.5 Angles
 
 - **θ — blade pitch angle:** angle between chord and local rotor-plane reference.
 - **φ — inflow angle:** angle between local tangential/reference direction and `vrel`.
@@ -110,14 +142,15 @@ Use the term **blade pitch angle θ** in student-facing material. Do **not** use
 
 Do not use visual placement that suggests `α = θ`.
 
-## 4.5 Forces
+## 4.6 Forces
 
 - **FL** is normal to `vrel`.
-- **FD** is parallel to and opposing the adopted relative-flow direction.
+- **FD** is parallel to the adopted local relative-flow convention and acts in the drag/downstream sense.
 - **TAF** is the vector resultant of FL and FD.
 - **dT (FV)** is the local component of TAF normal to the local TPP.
 - **FH** is the in-plane component of TAF.
-- In the normal powered-flight teaching case, `FH` is shown **aft/opposite blade travel** and represents the local braking/torque contribution the engine must overcome.
+- In the normal powered-flight teaching case, `FH` represents the local **braking / torque contribution opposite blade travel**.
+- Whether that braking vector appears left or right on the page depends on renderer orientation; **“left” or “right” is not the physics definition**.
 - A local `dT (FV)` is **not** whole-rotor thrust.
 - Whole-rotor thrust appears only after radial/azimuthal summation.
 
@@ -165,7 +198,7 @@ The mapping must remain explicit: in the Module 1 hover reference state, `vrot =
 
 # 7 · Meaning-based colour contract
 
-Colour communicates **physical meaning**, not epistemological status. The previous “input vs constructed” hue system is retired.
+Colour communicates **physical meaning**, not epistemological status.
 
 | Physical meaning | HeliLab role | Canonical colour | Applies to |
 |---|---|---|---|
@@ -178,7 +211,7 @@ Colour communicates **physical meaning**, not epistemological status. The previo
 | Structural reference / helpers | `dim` | `#8b9bb4` | TPP, axes, construction helpers |
 | α state | contextual | green → amber → red | α wedge/label according to stall proximity |
 
-`vrel` is an airflow vector and therefore remains blue. Purple is reserved for the **TAF resultant**, not `vrel`.
+`vrel` is an airflow/velocity construction and therefore remains blue. Purple is reserved for the **TAF resultant**.
 
 Light/dark renderers may use contrast-adjusted equivalents, but the semantic category must remain recognisable.
 
@@ -259,17 +292,17 @@ Later modules reuse the same visual grammar and activate additional inputs rathe
 
 ## HeliLab / Canvas
 
-HeliLab is the interactive reference implementation for sign, vector orientation, topology and semantic colours. M1-04 should reuse verified physics and existing drawing/control helpers rather than reimplement them.
+HeliLab is the canonical **interactive renderer** for Module 1. M1-04 should reuse verified physics and the current `wBladeElement` geometry/control/drawing helpers rather than reimplementing or visually reorienting them.
 
 ## Book / TikZ
 
-The established `\BETdiagram` macro remains the mature print implementation and a valuable geometric reference. Its output must now be audited against this contract. Where its labels, arrow direction or colours differ, update the print implementation deliberately rather than carrying the mismatch into other renderers.
+The established `\BETdiagram` macro remains the mature print implementation. A fully mirrored print orientation is valid. Its physics, relative vector relationships, labels and force meaning must conform to this contract, but it does **not** need to copy HeliLab page-left/page-right orientation.
 
 ## Curriculum / SVG / media
 
-`docs/assets/figures/module-1/master-b-bet-blade-element.svg` is a derived reusable asset. It must conform to this contract before being treated as approved.
+`docs/assets/figures/module-1/master-b-bet-blade-element.svg` is a derived reusable asset. For Module 1 instructional continuity, it should normally match the HeliLab interactive orientation unless there is an explicit print/layout reason to use the fully mirrored book orientation.
 
-Named SVG groups should map to the canonical layers in §3. The asset must not introduce its own colour grammar, vector direction or terminology.
+Named SVG groups should map to the canonical layers in §3. The asset must not introduce a hybrid orientation, its own colour grammar or inconsistent terminology.
 
 ## NotebookLM / Gemini media
 
@@ -279,22 +312,24 @@ Pre-study must not reveal the complete M1-04 causal solution before the classroo
 
 ---
 
-# 11 · Conflict resolution log — Pre-Stage 2
+# 11 · Conflict-resolution log
 
-The following decisions are frozen for M1-04:
+The following decisions are frozen for Module 1:
 
 | ID | Decision |
 |---|---|
 | C1 | canonical student label is `vrot (= Ωr)`, not `vr` |
-| C2 | SVG/media use the established HeliLab velocity-triangle topology |
-| C3 | `vrel` arrow points from upstream toward the blade element |
-| C4 | φ uses airflow blue |
-| C5 | θ uses chord/pitch orange |
-| C6 | FL green, FD red, TAF purple |
-| C7 | normal-flight FH points aft/opposite blade travel and uses amber |
-| C8 | use “blade pitch angle θ”; drop “AOI” as the shared primary term |
-| C9 | local normal component is labelled `dT (FV)`; whole-rotor `T` only after summation |
-| C10 | colour is meaning-based; input/derived role uses line style/reveal state instead of hue |
+| C2 | HeliLab/M1-04 uses the established HeliLab velocity-triangle topology |
+| C3 | HeliLab `vrel` uses its existing upstream → blade relative-airflow arrow convention |
+| C4 | a fully mirrored book/TikZ orientation is valid if the complete geometry is mirrored coherently |
+| C5 | φ uses airflow blue |
+| C6 | θ uses chord/pitch orange |
+| C7 | FL green, FD red, TAF purple |
+| C8 | normal-flight FH means aft/opposite blade travel; page-left/page-right depends on renderer orientation |
+| C9 | use “blade pitch angle θ”; drop “AOI” as the shared primary term |
+| C10 | local normal component is labelled `dT (FV)`; whole-rotor `T` only after summation |
+| C11 | colour is meaning-based; input/derived role uses line style/reveal state instead of hue |
+| C12 | never create a half-mirrored figure by changing only airfoil, vectors, forces or arrowheads |
 
 ---
 
@@ -302,25 +337,25 @@ The following decisions are frozen for M1-04:
 
 A BET visual is approved only when all applicable items pass:
 
-- [ ] `vrel` arrow runs upstream → blade element.
-- [ ] Velocity-triangle topology matches HeliLab.
+- [ ] Renderer orientation is identified: HeliLab canonical interactive or fully mirrored print orientation.
+- [ ] No partial/hybrid mirroring is present.
+- [ ] Velocity-triangle geometry is internally coherent.
 - [ ] `vrot`, `vi`, `vrel` and φ use airflow semantics.
 - [ ] θ and chord use pitch/chord semantics.
 - [ ] FL = green, FD = red, TAF = purple.
-- [ ] Normal-powered-flight FH points aft/opposite blade travel and is amber.
+- [ ] Normal-powered-flight FH is opposite blade travel and amber, irrespective of page-left/page-right.
 - [ ] Local normal component is `dT (FV)`, not whole-rotor `T`.
-- [ ] “AOI” is absent from the shared primary labels.
-- [ ] α follows the intended sign relation for the active regime.
+- [ ] “AOI” is absent from shared primary labels.
+- [ ] α follows the intended sign relation for the active regime, including negative α when applicable.
 - [ ] FL is normal to `vrel`.
 - [ ] FD follows the adopted local-flow convention.
 - [ ] TAF is vectorially consistent with FL + FD.
 - [ ] Resolved components are consistent with TAF and the local TPP.
+- [ ] Any angle exaggeration is explicitly labelled as not to scale.
 - [ ] HeliLab `verify_physics.js` remains green for relevant code changes.
 - [ ] Desktop and 390 px mobile views have no critical label collisions.
 - [ ] Light/dark rendering preserves semantic colour meaning.
 - [ ] Module 1 reveal sequence is preserved when used instructionally.
-
-Stage 2 must not begin from an unreviewed rendering that fails any HIGH-severity convention above.
 
 ---
 
@@ -330,7 +365,8 @@ Stage 2 must not begin from an unreviewed rendering that fails any HIGH-severity
 2. Update SVG/TikZ/Canvas/media renderers against it.
 3. Physics changes require verification tests.
 4. Visual changes require a comparison against the canonical layers and desktop/mobile checks.
-5. Do not resolve a mismatch by silently keeping different conventions in different media.
+5. Do not resolve a mismatch by silently keeping different **physics or relative geometry** in different media.
+6. Renderer-specific horizontal mirroring is permitted only as a complete coherent transform under §4.2.
 
 !!! success "Architecture decision"
-    **There is one BET model and multiple renderers — with HeliLab's verified physics and visual convention as the implementation authority.**
+    **There is one BET model and multiple coherent renderers. HeliLab defines the canonical interactive orientation; the book/TikZ renderer may use a fully mirrored print orientation without changing the physics.**
