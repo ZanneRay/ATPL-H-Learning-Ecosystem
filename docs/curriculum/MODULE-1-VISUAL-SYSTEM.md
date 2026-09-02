@@ -357,6 +357,23 @@ Feeds **V04, V05, V06, V07**.
 
 Feeds **V10, V11, V12** and most later helicopter-flight modules.
 
+![Master B — BET blade element and velocity triangle](../assets/figures/module-1/master-b-bet-blade-element.svg)
+
+The SVG is the editable source, not a screenshot. It is deliberately organised into named groups so the same asset can become progressive instructor reveals and HeliLab states.
+
+| SVG group | Teaching state |
+|---|---|
+| `reference-frame`, `blade-element` | persistent geometry |
+| `velocity-vr`, `velocity-vi` | input velocities |
+| `velocity-vrel`, `angle-phi` | V10 constructed flow geometry |
+| `angle-theta`, `angle-alpha` | V11 AOI / INFLOW / AOA relationship |
+| `forces-local` | V12 FL / FD / TAF |
+| `forces-resolved` | V12 FV / FH |
+| `legend` | optional orientation layer |
+
+!!! warning "Master B is a controlled source figure"
+    Geometry, vector direction and labels should be technically reviewed before this asset becomes the authoritative HeliLab implementation. Derived views should hide/show or transform these groups rather than redraw the model independently.
+
 ### Master C — Local-to-rotor summation
 
 Feeds **V08, V09, V13, V14**.
