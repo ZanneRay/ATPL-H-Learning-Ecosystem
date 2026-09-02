@@ -1,5 +1,12 @@
 # 082 Principles of Flight (Helicopters) — Curriculum Blueprint
 
+> [!WARNING]
+> **SUPERSEDED — architecture reference only.**
+>
+> This early provisional blueprint is retained for design history, but it is **not the current module architecture**. The normative subject architecture is now `docs/curriculum/32-HOUR-CURRICULUM-MAP.md`, supported by the current Module 1 blueprint, learning experience and instructor lesson plan under `docs/curriculum/`.
+>
+> In particular, the provisional boundary below placed Blade Element Theory in Module 2. The current architecture deliberately brings the foundational BET causal model into Module 1. AI collaborators and instructors must not use the module numbering below for new work.
+
 ## Role of this subject
 
 Principles of Flight is the first complete implementation of the ATPL(H) Learning Ecosystem. The subject will be used to validate the educational model, workflow, HeliLab integration and assessment approach before expansion to other subjects.
@@ -18,9 +25,9 @@ The curriculum must preserve EASA theoretical-knowledge coverage while deliberat
 - make and justify operationally relevant decisions;
 - identify and correct weaknesses in their own mental model.
 
-## Provisional module architecture
+## Legacy provisional module architecture
 
-The final lesson count and allocation will be validated against EASA LO coverage and the available 32 classroom hours.
+The table below is historical and is retained only to show the design evolution. **Do not use it for current module allocation.**
 
 | Module | Core question | Representative content |
 |---|---|---|
@@ -79,7 +86,9 @@ The course should not rely solely on one end-of-course multiple-choice event for
 
 The exact LPlus implementation and regulatory constraints remain to be specified and verified before the assessment design is frozen.
 
-## Next design work
+## Historical next-design list
+
+The following list is retained from the original provisional document and is no longer the authoritative project backlog:
 
 1. Complete EASA LO → module → activity → assessment mapping.
 2. Convert the 32 hours into a realistic lesson timetable.
