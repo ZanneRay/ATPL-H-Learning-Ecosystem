@@ -1,0 +1,85 @@
+.zoomable-diagram {
+  cursor: zoom-in;
+  transition: filter .15s ease, opacity .15s ease;
+}
+.zoomable-diagram:hover { opacity: .88; }
+.mermaid.zoomable-diagram::after {
+  content: "↗  Click to enlarge";
+  display: block;
+  margin-top: .35rem;
+  text-align: right;
+  font-size: .68rem;
+  color: var(--md-default-fg-color--light);
+}
+body.diagram-viewer-open { overflow: hidden; }
+.diagram-viewer {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: none;
+  background: color-mix(in srgb, var(--md-default-bg-color) 96%, transparent);
+  backdrop-filter: blur(6px);
+}
+.diagram-viewer.is-open { display: block; }
+.diagram-viewer__stage {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+}
+.diagram-viewer__stage.is-dragging { cursor: grabbing; }
+.diagram-viewer__content {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform-origin: center center;
+  will-change: transform;
+}
+.diagram-viewer__content > * {
+  transform: translate(-50%, -50%);
+  max-width: none !important;
+  max-height: none !important;
+}
+.diagram-viewer__content .mermaid svg {
+  min-width: min(1400px, 88vw);
+  height: auto !important;
+  max-width: none !important;
+}
+.diagram-viewer__content img,
+.diagram-viewer__content > svg {
+  min-width: min(1200px, 88vw);
+  height: auto !important;
+}
+.diagram-viewer__toolbar {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 10001;
+  display: flex;
+  gap: .35rem;
+  padding: .35rem;
+  border-radius: .6rem;
+  background: var(--md-default-bg-color);
+  box-shadow: 0 .2rem 1rem rgba(0,0,0,.2);
+}
+.diagram-viewer__toolbar button {
+  min-width: 2.35rem;
+  height: 2.35rem;
+  padding: 0 .65rem;
+  border: 0;
+  border-radius: .4rem;
+  background: var(--md-primary-fg-color);
+  color: var(--md-primary-bg-color);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+.diagram-viewer__toolbar button:hover { filter: brightness(.9); }
+@media (max-width: 600px) {
+  .diagram-viewer__toolbar { top: .5rem; right: .5rem; }
+  .diagram-viewer__content .mermaid svg,
+  .diagram-viewer__content img,
+  .diagram-viewer__content > svg { min-width: 1100px; }
+}
