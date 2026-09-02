@@ -10,27 +10,44 @@ This site is the live design handbook for a modern ATPL(H) learning ecosystem. *
 
 ## The idea in one view
 
+The system is deliberately shown in **three readable layers** rather than one wide technical flowchart.
+
+### 1 · Regulatory input → learning architecture
+
 ```mermaid
 flowchart LR
-    A[EASA Subject 082\nKnowledge spine] --> B[Learning architecture]
-    K[Area 100 KSA\nBehaviour layer] --> B
-    B --> C[ORIENT]
-    C --> D[PREDICT]
-    D --> E[BUILD]
-    E --> F[EXPLORE]
-    F --> G[EXPLAIN]
-    G --> H[APPLY]
-    H --> I[CHECK & REFLECT]
-    I -. spiral learning .-> C
+    A["EASA Subject 082<br/><b>Knowledge spine</b>"] --> C["<b>LEARNING ARCHITECTURE</b><br/>what students must know,<br/>do and demonstrate"]
+    B["Area 100 KSA<br/><b>Behaviour layer</b>"] --> C
+```
 
-    F --> HL[HeliLab]
-    C --> M[Link & Learn]
-    I --> LP[LPlus / assessment]
-    E --> P[Instructor + PowerPoint]
-    E --> T[Theory handbook]
+### 2 · The recurring student learning cycle
+
+```mermaid
+flowchart LR
+    A["<b>ORIENT</b><br/>Why does this matter?"] --> B["<b>PREDICT</b><br/>Commit to an outcome"]
+    B --> C["<b>BUILD</b><br/>Construct the model"]
+    C --> D["<b>EXPLORE</b><br/>Test it"]
+    D --> E["<b>EXPLAIN</b><br/>Why did it happen?"]
+    E --> F["<b>APPLY</b><br/>Use it in context"]
+    F --> G["<b>CHECK & REFLECT</b><br/>Evidence + correction"]
+    G -. "next concept · increased complexity" .-> A
+```
+
+### 3 · Tools support the learning — they do not define it
+
+```mermaid
+flowchart LR
+    A["ORIENT"] --> L["Link & Learn"]
+    B["BUILD"] --> P["Instructor + PowerPoint"]
+    B --> T["Theory handbook"]
+    C["EXPLORE"] --> H["HeliLab"]
+    D["CHECK & REFLECT"] --> X["Formative checks / LPlus"]
 ```
 
 The redesign does **not** replace rigorous theory with scenarios. It changes what students repeatedly *do with the theory*: retrieve it, predict with it, test it, explain it and transfer it to changed conditions.
+
+!!! note "Visual design standard"
+    A diagram must be readable at normal desktop width without browser zoom. If a process needs more than roughly 6–7 meaningful nodes, it should be split into layers, stages or a dedicated full-width figure. Dense overview diagrams are navigation aids, not places to hide text.
 
 ## Three architecture layers
 
@@ -52,32 +69,10 @@ The redesign does **not** replace rigorous theory with scenarios. It changes wha
 
 ## Output model
 
-The repository is the source of truth. From it we aim to generate two primary human-facing products:
+The repository is the source of truth. From it we aim to generate two primary human-facing products. The detailed production pipeline lives in the architecture section rather than being squeezed into this landing page.
 
-```mermaid
-flowchart TB
-    GH[(GitHub source of truth)]
-    MD[Markdown narrative]
-    YA[YAML curriculum data]
-    MM[Mermaid process diagrams]
-    SVG[SVG technical figures]
-
-    GH --> MD
-    GH --> YA
-    GH --> MM
-    GH --> SVG
-
-    MD --> WEB[Live handbook website]
-    YA --> WEB
-    MM --> WEB
-    SVG --> WEB
-
-    MD --> PDF[Controlled handbook PDF]
-    YA --> PDF
-    MM --> PDF
-    SVG --> PDF
-
-    YA --> FUTURE[Future automation\nLO matrices · Moodle · assessment mappings]
-```
+| Source of truth | Living output | Controlled output |
+|---|---|---|
+| GitHub + Markdown + curriculum data + editable figures | **Live handbook website** | **Versioned handbook PDF** |
 
 The web handbook is the living version. The PDF is the controlled, printable release. Word is treated as an optional export rather than the master source.
